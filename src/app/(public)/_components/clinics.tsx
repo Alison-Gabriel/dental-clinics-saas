@@ -28,7 +28,7 @@ export function Clinics() {
                 src={cardImg}
                 alt=""
                 fill
-                className="object-cover transition-all hover:scale-105"
+                className="object-cover"
                 quality={100}
               />
             </CardHeader>
