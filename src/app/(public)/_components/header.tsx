@@ -1,5 +1,10 @@
 "use client";
 
+import { LogInIcon, MenuIcon } from "lucide-react";
+import Link from "next/link";
+import { useState } from "react";
+
+import { Button } from "@/src/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -8,10 +13,6 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/src/components/ui/sheet";
-import { Button } from "@/src/components/ui/button";
-import Link from "next/link";
-import { LogInIcon, MenuIcon } from "lucide-react";
-import { useState } from "react";
 
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);

@@ -1,3 +1,9 @@
+import { ArrowRightIcon } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
+
+import cardImg from "@/public/foto1.png";
+import { Button } from "@/src/components/ui/button";
 import {
   Card,
   CardContent,
@@ -6,11 +12,6 @@ import {
   CardHeader,
   CardTitle,
 } from "@/src/components/ui/card";
-import Image from "next/image";
-import cardImg from "@/public/foto1.png";
-import { Button } from "@/src/components/ui/button";
-import { ArrowRightIcon } from "lucide-react";
-import Link from "next/link";
 
 export function Clinics() {
   return (
