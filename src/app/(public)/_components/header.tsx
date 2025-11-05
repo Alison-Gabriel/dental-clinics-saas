@@ -1,6 +1,6 @@
 "use client";
 
-import { LogInIcon, MenuIcon } from "lucide-react";
+import { LogInIcon, ListIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
 
@@ -62,7 +62,7 @@ export function Header() {
         <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
           <SheetTrigger className="md:hidden" asChild>
             <Button size={"icon"} variant={"outline"}>
-              <MenuIcon className="size-5" />
+              <ListIcon className="size-5" />
             </Button>
           </SheetTrigger>
 
