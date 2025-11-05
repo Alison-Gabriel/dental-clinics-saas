@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/static-components */
 "use client";
 
 import {
@@ -17,7 +16,7 @@ import { useState } from "react";
 export function Header() {
   const [isSheetOpen, setIsSheetOpen] = useState(false);
 
-  const session = null;
+  const session = true;
   const hasSession = Boolean(session);
   const navItems = [{ href: "#professionals", label: "Profissionais" }];
 
@@ -36,9 +35,11 @@ export function Header() {
         ))}
 
         {hasSession ? (
-          <Link href="/dashboard">Painel</Link>
+          <Button variant="link" asChild className="px-0">
+            <Link href="/dashboard">Painel</Link>
+          </Button>
         ) : (
-          <Button variant="outline">
+          <Button variant="outline" className="px-0">
             <LogInIcon className="size-3.5" /> Entrar
           </Button>
         )}
