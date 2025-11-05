@@ -21,7 +21,7 @@ export function Clinics() {
           Clínicas disponíveis
         </h2>
 
-        <section className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
           <Card className="overflow-hidden pt-0">
             <CardHeader className="relative h-60 w-full overflow-hidden p-0">
               <Image
@@ -50,7 +50,7 @@ export function Clinics() {
               </Button>
             </CardFooter>
           </Card>
-        </section>
+        </div>
       </div>
     </section>
   );
