@@ -18,7 +18,7 @@ export function Header() {
 
   const session = true;
   const hasSession = Boolean(session);
-  const navItems = [{ href: "#professionals", label: "Profissionais" }];
+  const navItems = [{ href: "#clinics", label: "Clínicas" }];
 
   const NavLinks = () => {
     return (
