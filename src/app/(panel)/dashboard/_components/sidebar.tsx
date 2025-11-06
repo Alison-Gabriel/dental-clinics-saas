@@ -2,11 +2,11 @@
 
 import clsx from "clsx";
 import {
-  BanknoteIcon,
-  CalendarCheckIcon,
-  FoldersIcon,
+  Banknote,
+  CalendarCheck,
+  Folders,
   ListIcon,
-  SettingsIcon,
+  Settings,
 } from "lucide-react";
 import { ReactNode, useState } from "react";
 
@@ -27,14 +27,15 @@ interface SidebarDashboardProps {
 }
 
 export function SidebarDashboard({ children }: SidebarDashboardProps) {
-  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const isNotSidebarCollapsed = !isSidebarCollapsed;
 
   return (
     <div className="flex min-h-screen w-full">
       <div
         className={clsx("flex flex-1 flex-col transition-all", {
-          "md:ml-20": isCollapsed,
-          "md:ml-64": !isCollapsed,
+          "md:ml-20": isSidebarCollapsed,
+          "md:ml-64": isNotSidebarCollapsed,
         })}
       >
         <header className="sticky top-0 z-10 flex h-14 items-center justify-between border-b bg-white px-4 md:hidden">
@@ -51,39 +52,34 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
                 <SheetDescription>Menu adminstrativo</SheetDescription>
               </SheetHeader>
 
-              {/* TODO: Apply Composition on SidebarLink component */}
-              <nav className="flex flex-col gap-4 px-5">
-                <div className="space-y-2">
-                  <p className="mb-2 text-sm text-zinc-500 uppercase">
-                    Dashboard
-                  </p>
+              <nav className="flex flex-col gap-2 px-5">
+                <SidebarLink.Root href="/dashboard">
+                  <SidebarLink.Icon icon={CalendarCheck} />
+                  {isNotSidebarCollapsed && (
+                    <SidebarLink.Label>Agendamentos</SidebarLink.Label>
+                  )}
+                </SidebarLink.Root>
 
-                  <SidebarLink href="/dashboard">
-                    <CalendarCheckIcon className="size-5" />
-                    {!isCollapsed && <span>Agendamentos</span>}
-                  </SidebarLink>
+                <SidebarLink.Root href="/dashboard/services">
+                  <SidebarLink.Icon icon={Folders} />
+                  {isNotSidebarCollapsed && (
+                    <SidebarLink.Label>Serviços</SidebarLink.Label>
+                  )}
+                </SidebarLink.Root>
 
-                  <SidebarLink href="/dashboard/services">
-                    <FoldersIcon className="size-5" />
-                    {!isCollapsed && <span>Serviços</span>}
-                  </SidebarLink>
-                </div>
+                <SidebarLink.Root href="/dashboard/profile">
+                  <SidebarLink.Icon icon={Settings} />
+                  {isNotSidebarCollapsed && (
+                    <SidebarLink.Label>Configurações</SidebarLink.Label>
+                  )}
+                </SidebarLink.Root>
 
-                <div className="space-y-2">
-                  <p className="mb-2 text-sm text-zinc-500 uppercase">
-                    Minha conta
-                  </p>
-
-                  <SidebarLink href="/dashboard/profile">
-                    <SettingsIcon className="size-5" />
-                    {!isCollapsed && <span>Configurações</span>}
-                  </SidebarLink>
-
-                  <SidebarLink href="/dashboard/plans">
-                    <BanknoteIcon className="size-5" />
-                    {!isCollapsed && <span>Serviços</span>}
-                  </SidebarLink>
-                </div>
+                <SidebarLink.Root href="/dashboard/plans">
+                  <SidebarLink.Icon icon={Banknote} />
+                  {isNotSidebarCollapsed && (
+                    <SidebarLink.Label>Planos</SidebarLink.Label>
+                  )}
+                </SidebarLink.Root>
               </nav>
             </SheetContent>
           </Sheet>
