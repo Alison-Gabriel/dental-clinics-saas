@@ -14,16 +14,16 @@ import {
 import Image from "next/image";
 import { ReactNode, useState } from "react";
 
-import logoImg from "@/public/logo-odonto.png";
-import { Button } from "@/src/components/ui/button";
-import { Collapsible } from "@/src/components/ui/collapsible";
+import { Button } from "@/components/ui/button";
+import { Collapsible } from "@/components/ui/collapsible";
 import {
   Sheet,
   SheetContent,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/src/components/ui/sheet";
+} from "@/components/ui/sheet";
+import logoImg from "@/public/logo-odonto.png";
 
 import { SidebarLink } from "./sidebar-link";
 
@@ -165,16 +165,12 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
 
                   <SidebarLink.Root href="/dashboard">
                     <SidebarLink.Icon icon={CalendarCheck} />
-                    {isNotSidebarCollapsed && (
-                      <SidebarLink.Label>Agendamentos</SidebarLink.Label>
-                    )}
+                    <SidebarLink.Label>Agendamentos</SidebarLink.Label>
                   </SidebarLink.Root>
 
                   <SidebarLink.Root href="/dashboard/services">
                     <SidebarLink.Icon icon={Folders} />
-                    {isNotSidebarCollapsed && (
-                      <SidebarLink.Label>Serviços</SidebarLink.Label>
-                    )}
+                    <SidebarLink.Label>Serviços</SidebarLink.Label>
                   </SidebarLink.Root>
                 </div>
 
@@ -185,16 +181,12 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
 
                   <SidebarLink.Root href="/dashboard/profile">
                     <SidebarLink.Icon icon={Settings} />
-                    {isNotSidebarCollapsed && (
-                      <SidebarLink.Label>Configurações</SidebarLink.Label>
-                    )}
+                    <SidebarLink.Label>Configurações</SidebarLink.Label>
                   </SidebarLink.Root>
 
                   <SidebarLink.Root href="/dashboard/plans">
                     <SidebarLink.Icon icon={Banknote} />
-                    {isNotSidebarCollapsed && (
-                      <SidebarLink.Label>Planos</SidebarLink.Label>
-                    )}
+                    <SidebarLink.Label>Planos</SidebarLink.Label>
                   </SidebarLink.Root>
                 </div>
               </nav>
