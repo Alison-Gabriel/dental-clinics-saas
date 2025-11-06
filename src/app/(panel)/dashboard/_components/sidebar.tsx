@@ -20,7 +20,6 @@ import { Collapsible } from "@/src/components/ui/collapsible";
 import {
   Sheet,
   SheetContent,
-  SheetDescription,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
@@ -59,12 +58,17 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
 
         <Button
           size="icon"
-          variant="secondary"
-          className={clsx("mb-4", { "self-end": isNotSidebarCollapsed })}
-          onClick={() => setIsSidebarCollapsed((prev) => !prev)}
+          variant="outline"
+          className={clsx("mb-4", {
+            "self-end": isNotSidebarCollapsed,
+          })}
+          onClick={() => setIsSidebarCollapsed((oldValue) => !oldValue)}
         >
-          {isSidebarCollapsed && <ChevronRight className="size-6" />}
-          {isNotSidebarCollapsed && <ChevronLeft className="size-6" />}
+          {isSidebarCollapsed ? (
+            <ChevronRight className="size-6" />
+          ) : (
+            <ChevronLeft className="size-6" />
+          )}
         </Button>
 
         {isSidebarCollapsed && (
@@ -91,42 +95,34 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
           <CollapsibleContent>
             <nav className="flex flex-col gap-4">
               <div className="space-y-2">
-                <p className="text-xs -tracking-tighter text-zinc-500 uppercase">
+                <p className="text-xs font-medium -tracking-tighter text-zinc-500 uppercase">
                   Painel
                 </p>
 
                 <SidebarLink.Root href="/dashboard">
                   <SidebarLink.Icon icon={CalendarCheck} />
-                  {isNotSidebarCollapsed && (
-                    <SidebarLink.Label>Agendamentos</SidebarLink.Label>
-                  )}
+                  <SidebarLink.Label>Agendamentos</SidebarLink.Label>
                 </SidebarLink.Root>
 
                 <SidebarLink.Root href="/dashboard/services">
                   <SidebarLink.Icon icon={Folders} />
-                  {isNotSidebarCollapsed && (
-                    <SidebarLink.Label>Serviços</SidebarLink.Label>
-                  )}
+                  <SidebarLink.Label>Serviços</SidebarLink.Label>
                 </SidebarLink.Root>
               </div>
 
               <div className="space-y-2">
-                <p className="text-xs -tracking-tighter text-zinc-500 uppercase">
+                <p className="text-xs font-medium -tracking-tighter text-zinc-500 uppercase">
                   Minha conta
                 </p>
 
                 <SidebarLink.Root href="/dashboard/profile">
                   <SidebarLink.Icon icon={Settings} />
-                  {isNotSidebarCollapsed && (
-                    <SidebarLink.Label>Configurações</SidebarLink.Label>
-                  )}
+                  <SidebarLink.Label>Configurações</SidebarLink.Label>
                 </SidebarLink.Root>
 
                 <SidebarLink.Root href="/dashboard/plans">
                   <SidebarLink.Icon icon={Banknote} />
-                  {isNotSidebarCollapsed && (
-                    <SidebarLink.Label>Planos</SidebarLink.Label>
-                  )}
+                  <SidebarLink.Label>Planos</SidebarLink.Label>
                 </SidebarLink.Root>
               </div>
             </nav>
@@ -150,13 +146,20 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
 
             <SheetContent side="left" className="text-black sm:max-w-xs">
               <SheetHeader>
-                <SheetTitle>OdontoPRO</SheetTitle>
-                <SheetDescription>Menu adminstrativo</SheetDescription>
+                <SheetTitle>
+                  <Image
+                    src={logoImg}
+                    alt="Odonto pro"
+                    quality={100}
+                    priority
+                    className="h-12 w-auto"
+                  />
+                </SheetTitle>
               </SheetHeader>
 
               <nav className="flex flex-col gap-4 px-5">
                 <div className="space-y-2">
-                  <p className="text-xs -tracking-tighter text-zinc-500 uppercase">
+                  <p className="text-xs font-medium -tracking-tighter text-zinc-500 uppercase">
                     Painel
                   </p>
 
@@ -176,7 +179,7 @@ export function SidebarDashboard({ children }: SidebarDashboardProps) {
                 </div>
 
                 <div className="space-y-2">
-                  <p className="text-xs -tracking-tighter text-zinc-500 uppercase">
+                  <p className="text-xs font-medium -tracking-tighter text-zinc-500 uppercase">
                     Meu perfil
                   </p>
 
