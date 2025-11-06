@@ -1,10 +1,19 @@
 "use client";
 
-import { LogInIcon, ListIcon } from "lucide-react";
+import {
+  ArrowRight,
+  ListIcon,
+  Loader2,
+  LogIn,
+  LogInIcon,
+  LucideArrowRightFromLine,
+} from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 
-import { Button } from "@/src/components/ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Sheet,
   SheetContent,
@@ -12,40 +21,15 @@ import {
   SheetHeader,
   SheetTitle,
   SheetTrigger,
-} from "@/src/components/ui/sheet";
+} from "@/components/ui/sheet";
+
+import { login } from "../_actions/login";
+import { HeaderNavItems } from "./header-nav-items";
+import { MobileMenu } from "./mobile-menu";
 
 export function Header() {
-  const [isSheetOpen, setIsSheetOpen] = useState(false);
-
-  const session = true;
-  const hasSession = Boolean(session);
-  const navItems = [{ href: "#clinics", label: "Clínicas" }];
-
-  const NavLinks = () => {
-    return (
-      <>
-        {navItems.map((item) => (
-          <Button
-            key={item.href}
-            variant={"link"}
-            onClick={() => setIsSheetOpen(false)}
-            asChild
-          >
-            <Link href={item.href}>{item.label}</Link>
-          </Button>
-        ))}
-
-        {hasSession ? (
-          <Button variant="link" asChild className="px-0">
-            <Link href="/dashboard">Painel</Link>
-          </Button>
-        ) : (
-          <Button variant="outline" className="px-0">
-            <LogInIcon className="size-3.5" /> Entrar
-          </Button>
-        )}
-      </>
-    );
+  const handleLogin = async () => {
+    await login("github");
   };
 
   return (
@@ -56,27 +40,10 @@ export function Header() {
         </Link>
 
         <nav className="hidden items-center gap-4 md:flex">
-          <NavLinks />
+          <HeaderNavItems.Desktop onEnterButtonClick={handleLogin} />
         </nav>
 
-        <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
-          <SheetTrigger className="md:hidden" asChild>
-            <Button size={"icon"} variant={"outline"}>
-              <ListIcon className="size-5" />
-            </Button>
-          </SheetTrigger>
-
-          <SheetContent side="right" className="z-999 w-3xs sm:w-xs">
-            <SheetHeader>
-              <SheetTitle>Menu</SheetTitle>
-              <SheetDescription>Confira nossos links</SheetDescription>
-            </SheetHeader>
-
-            <nav className="flex flex-col justify-center gap-4 px-4">
-              <NavLinks />
-            </nav>
-          </SheetContent>
-        </Sheet>
+        <MobileMenu />
       </div>
     </header>
   );
