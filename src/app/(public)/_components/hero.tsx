@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { Button } from "@/components/ui/button";
 import heroImg from "@/public/doctor-hero.png";
-import { Button } from "@/src/components/ui/button";
 
 export function Hero() {
   return (
