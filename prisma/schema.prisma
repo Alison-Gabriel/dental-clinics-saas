@@ -1,0 +1,148 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Appointment {
+  id                String      @id @default(uuid())
+  patientName       String      @map("patient_name")
+  patientEmail      String      @map("patient_email")
+  patientPhone      String      @map("patient_phone")
+  appointmentDate   DateTime    @map("appointment_date")
+  time              String
+
+  serviceId         String      @map("service_id")  @unique
+  service           Service     @relation(fields: [serviceId], references: [id])
+  userId            String      @map("user_id") @unique
+  user              User        @relation(fields: [userId], references: [id])
+
+  createdAt         DateTime    @map("created_at") @default(now())
+  updatedAt         DateTime    @map("updated_at") @updatedAt
+}
+
+model Reminder {
+  id              String    @id @default(uuid())
+  description     String
+
+  userId          String    @map("user_id") @unique
+  user            User      @relation(fields: [userId], references: [id])
+
+  createdAt       DateTime  @map("created_at") @default(now())
+  updatedAt       DateTime  @map("updated_at") @updatedAt
+}
+
+model Service {
+  id              String    @id @default(uuid())
+  name            String
+  priceInCents    Int       @map("price_in_cents")
+  duration        Int
+  isActive        Boolean   @map("is_active") @default(false)
+  
+  userId          String    @map("user_id") @unique
+  user            User      @relation(fields: [userId], references: [id])
+  appointments    Appointment[]
+
+  createdAt       DateTime  @map("created_at") @default(now())
+  updatedAt       DateTime  @map("updated_at") @updatedAt
+}
+
+enum Plan {
+  BASIC
+  PROFESSIONAL
+}
+
+model Subscription {
+  id              String    @id @default(uuid())
+  status          Plan
+  priceId         String    @map("price_id")
+
+  userId          String    @map("user_id") @unique
+  user            User      @relation(fields: [userId], references: [id]) 
+
+  createdAt       DateTime  @map("created_at") @default(now())
+  updatedAt       DateTime  @map("updated_at") @updatedAt
+}
+
+model User {
+  id                  String          @id @default(cuid())
+  name                String?
+  email               String          @unique
+  emailVerified       DateTime?       @map("email_verified")
+  image               String?
+  address             String?
+  phone               String?
+  isAvailable         Boolean?        @map("is_available") @default(true)
+  timezone            String?
+  stripeCustomerId    String?         @map("stripe_customer_id")
+  availableTimes      String[]        @map("available_times") @default([])
+
+  subscription        Subscription?
+  services            Service[]
+  reminders           Reminder[]
+  appointments        Appointment[]
+  accounts            Account[]
+  sessions            Session[]
+  Authenticator       Authenticator[]
+ 
+  createdAt           DateTime  @map("created_at") @default(now())
+  updatedAt           DateTime  @map("updated_at") @updatedAt
+}
+ 
+model Account {
+  userId            String    @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String    @map("provider_account_id") 
+  refreshToken      String?   @map("refresh_token")
+  accessToken       String?   @map("access_token")
+  expiresAt         Int?      @map("expires_at")
+  tokenType         String?   @map("token_type")
+  scope             String?
+  idToken           String?   @map("id_token")
+  sessionState      String?   @map("session_state")
+ 
+  createdAt         DateTime  @map("created_at") @default(now())
+  updatedAt         DateTime  @map("updated_at") @updatedAt
+ 
+  user              User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([provider, providerAccountId])
+}
+ 
+model Session {
+  sessionToken    String    @map("session_token") @unique
+  userId          String    @map("user_id")
+  expires         DateTime
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  createdAt       DateTime  @map("created_at") @default(now())
+  updatedAt       DateTime  @map("updated_at") @updatedAt
+}
+ 
+model VerificationToken {
+  identifier String
+  token      String
+  expires    DateTime
+ 
+  @@id([identifier, token])
+}
+ 
+model Authenticator {
+  credentialID         String     @map("credential_id") @unique
+  userId               String     @map("user_id")
+  providerAccountId    String     @map("provider_account_id")
+  credentialPublicKey  String     @map("credential_public_key")
+  counter              Int
+  credentialDeviceType String     @map("credential_device_type")
+  credentialBackedUp   Boolean    @map("credential_backed_up")
+  transports           String?
+ 
+  user                 User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+ 
+  @@id([userId, credentialID])
+}
