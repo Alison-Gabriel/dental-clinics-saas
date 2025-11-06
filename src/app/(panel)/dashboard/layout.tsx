@@ -1,6 +1,6 @@
 import { ReactNode } from "react";
 
-import { SidebarDashboard } from "./_components/sidebar";
+import { DashboardSidebar } from "./_components/dashboard-sidebar";
 
 interface DashboardLayoutProps {
   children: Readonly<ReactNode>;
@@ -9,7 +9,7 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   return (
     <>
-      <SidebarDashboard>{children}</SidebarDashboard>
+      <DashboardSidebar>{children}</DashboardSidebar>
     </>
   );
 }
