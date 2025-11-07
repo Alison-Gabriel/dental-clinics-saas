@@ -1,12 +1,6 @@
 "use client";
 
-import {
-  ArrowRightIcon,
-  ArrowRightToLineIcon,
-  Loader2Icon,
-  LogIn,
-  LogInIcon,
-} from "lucide-react";
+import { ArrowRightToLineIcon, Loader2Icon, LogInIcon } from "lucide-react";
 import Link from "next/link";
 import { useSession } from "next-auth/react";
 

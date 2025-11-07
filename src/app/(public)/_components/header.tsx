@@ -1,27 +1,6 @@
 "use client";
 
-import {
-  ArrowRight,
-  ListIcon,
-  Loader2,
-  LogIn,
-  LogInIcon,
-  LucideArrowRightFromLine,
-} from "lucide-react";
-import Image from "next/image";
 import Link from "next/link";
-import { useSession } from "next-auth/react";
-import { useState } from "react";
-
-import { Button } from "@/components/ui/button";
-import {
-  Sheet,
-  SheetContent,
-  SheetDescription,
-  SheetHeader,
-  SheetTitle,
-  SheetTrigger,
-} from "@/components/ui/sheet";
 
 import { login } from "../_actions/login";
 import { HeaderNavItems } from "./header-nav-items";
